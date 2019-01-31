@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // code to handle the how to button being pressed
         findViewById(R.id.how_to_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Intent to open up the how to play activity
     private void goToHowTo() {
         Intent intent = new Intent(getApplicationContext(), activity_how_to.class);
         startActivity(intent);
