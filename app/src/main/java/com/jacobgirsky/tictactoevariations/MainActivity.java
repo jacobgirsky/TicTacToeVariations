@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
                 goToGame1();
             }
         });
+
+        findViewById(R.id.game2_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToGame2();
+            }
+        });
     }
 
     // Intent to open up the how to play activity
@@ -38,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     // Intent to open up the how to play activity
     private void goToGame1() {
         Intent intent = new Intent(getApplicationContext(), NotaktoActivity.class);
+        startActivity(intent);
+    }
+
+    // Intent to open up the how to play activity
+    private void goToGame2() {
+        Intent intent = new Intent(getApplicationContext(), Misere_avtivity.class);
         startActivity(intent);
     }
 }
