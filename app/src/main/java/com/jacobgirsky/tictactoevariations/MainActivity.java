@@ -20,11 +20,24 @@ public class MainActivity extends AppCompatActivity {
                 goToHowTo();
             }
         });
+
+        findViewById(R.id.game1_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToGame1();
+            }
+        });
     }
 
     // Intent to open up the how to play activity
     private void goToHowTo() {
         Intent intent = new Intent(getApplicationContext(), activity_how_to.class);
+        startActivity(intent);
+    }
+
+    // Intent to open up the how to play activity
+    private void goToGame1() {
+        Intent intent = new Intent(getApplicationContext(), NotaktoActivity.class);
         startActivity(intent);
     }
 }

@@ -1,13 +1,13 @@
 package com.jacobgirsky.tictactoevariations;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class NotaktoActivity extends AppCompatActivity {
+public class Misere_avtivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notakto);
+        setContentView(R.layout.activity_misere_avtivity);
     }
 }
