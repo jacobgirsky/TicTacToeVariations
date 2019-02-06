@@ -17,6 +17,8 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[3][3];
     private int roundCount = 0;
+    private int player1Points;
+    private int player2Points;
 
 
     GameTurn turn = GameTurn.PLAYER_1;
@@ -48,6 +50,7 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         TextView textView = findViewById(R.id.player_turn_tv);
+        TextView tv = findViewById(R.id.winnter_tv);
 
         if (!((Button) v).getText().toString().equals("")) {
             return;
@@ -68,10 +71,13 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
             roundCount++;
 
             if (checkForWin()) {
-                textView.setText("Player 1 wins!!");
-                Toast.makeText(this, "Player 1 Wins!!", Toast.LENGTH_LONG).show();
-            } else if (roundCount == 36) {
-                Toast.makeText(this, "Player 2 wins!!", Toast.LENGTH_LONG).show();
+                if (turn == GameTurn.PLAYER_1) {
+                    tv.setText("Player 1 wins!!");
+                } else if (turn == GameTurn.PLAYER_2) {
+                    tv.setText("Player 2 wins!!");
+                } else if (roundCount == 9) {
+                    tv.setText("It is a tie!!");
+                }
             }
         }
 
@@ -85,8 +91,38 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
                 field[i][j] = buttons[i][j].getText().toString();
             }
         }
-        return true;
+
+        for (int i = 0; i < 3; i++) {
+            if (field[i][0].equals(field[i][1])
+                    && field[i][0].equals(field[i][2])
+                    && !field[i][0].equals("")) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (field[0][i].equals(field[1][i])
+                    && field[0][i].equals(field[2][i])
+                    && !field[0][i].equals("")) {
+                return true;
+            }
+        }
+
+        if (field[0][0].equals(field[1][1])
+                && field[0][0].equals(field[2][2])
+                && !field[0][0].equals("")) {
+            return true;
+        }
+
+        if (field[0][2].equals(field[1][1])
+                && field[0][2].equals(field[2][0])
+                && !field[0][2].equals("")) {
+            return true;
+        }
+
+        return false;
     }
+
 
     private void reset() {
         findViewById(R.id.player_turn_tv);
@@ -95,6 +131,8 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
                 buttons[i][j].setText("");
                 roundCount = 0;
                 TextView tv = findViewById(R.id.player_turn_tv);
+                TextView textView = findViewById(R.id.winnter_tv);
+                textView.setText("");
                 tv.setText("Turn: Player 1");
             }
         }
