@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// shows the turns of the players
 enum GameTurn {
     PLAYER_1,
     PLAYER_2
