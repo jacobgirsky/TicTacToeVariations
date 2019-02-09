@@ -30,6 +30,7 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misere_avtivity);
 
+        // get the ids for all the buttons
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
                 String buttonID = "button_" + i + j;
@@ -38,6 +39,7 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
                 buttons[i][j].setOnClickListener(this);
             }
 
+        // onClick for the reset button
         Button b = findViewById(R.id.reset_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,29 +62,36 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
         if (turn == GameTurn.PLAYER_1) {
             textView.setText("Turn: Player 1");
             ((Button) v).setText("X");
+            ((Button)v).setTextSize(30);
             ((Button) v).setTextColor(Color.RED);
             turn = GameTurn.PLAYER_2;
 
         } else if (turn == GameTurn.PLAYER_2) {
             textView.setText("Turn: Player 2");
             ((Button) v).setText("O");
+            ((Button) v).setTextSize(30);
             ((Button) v).setTextColor(Color.BLUE);
             turn = GameTurn.PLAYER_1;
+        }
 
             roundCount++;
 
             if (checkForWin()) {
                 if (turn == GameTurn.PLAYER_1) {
-                    tv.setText("Player 1 wins!!");
-                } else if (turn == GameTurn.PLAYER_2) {
-                    tv.setText("Player 2 wins!!");
-                } else if (roundCount == 9) {
-                    tv.setText("It is a tie!!");
+                    player1Points++;
+                    Toast.makeText(this, "Player 1 loses!", Toast.LENGTH_SHORT).show();
+                    tv.setText("Player 1 loses!!");
+                    //reset();
+                } else {
+                    Toast.makeText(this, "Player 2 loses!", Toast.LENGTH_SHORT).show();
+                    tv.setText("Player 2 loses!!");
                 }
+            }
+            if (roundCount == 9) {
+                Toast.makeText(this, "It's a tie!!!", Toast.LENGTH_SHORT).show();
             }
         }
 
-    }
 
     private boolean checkForWin() {
         String[][] field = new String[3][3];
