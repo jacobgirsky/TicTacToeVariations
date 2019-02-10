@@ -142,7 +142,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         return false;
     }
 
-    // resets the board 
+    // resets the board
     private void reset() {
         findViewById(R.id.player_turn_tv);
         for (int i = 0; i < 3; i++) {
