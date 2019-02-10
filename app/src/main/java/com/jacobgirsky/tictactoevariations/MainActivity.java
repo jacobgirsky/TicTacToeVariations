@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Intent to open up the how to play activity
     private void goToGame2() {
-        Intent intent = new Intent(getApplicationContext(), Misere_avtivity.class);
+        Intent intent = new Intent(getApplicationContext(), Misere_activity.class);
         startActivity(intent);
     }
 }

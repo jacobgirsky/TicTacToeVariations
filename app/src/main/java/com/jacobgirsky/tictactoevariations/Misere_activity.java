@@ -14,12 +14,12 @@ enum GameTurn {
     PLAYER_2
 }
 
-public class Misere_avtivity extends Activity implements View.OnClickListener {
+public class Misere_activity extends Activity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[3][3];
     private int roundCount = 0;
-    private int player1Points;
-    private int player2Points;
+    TextView tv;
+    private long backPressedTime = 0;
 
 
     GameTurn turn = GameTurn.PLAYER_1;
@@ -50,26 +50,38 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
 
     }
 
+    // to prevent the user from exiting the game
+    @Override
+    public void onBackPressed() {
+        long t = System.currentTimeMillis();
+        if (t - backPressedTime > 4000) {
+            backPressedTime = t;
+            Toast.makeText(this, "Press back again to leave the game",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public void onClick(View v) {
+
         TextView textView = findViewById(R.id.player_turn_tv);
-        TextView tv = findViewById(R.id.winnter_tv);
+        tv = findViewById(R.id.winner_tv);
 
         if (!((Button) v).getText().toString().equals("")) {
             return;
         }
 
         if (turn == GameTurn.PLAYER_1) {
-            textView.setText("Turn: Player 1");
+            textView.setText("Turn: Player 2 O");
             ((Button) v).setText("X");
-            ((Button)v).setTextSize(30);
             ((Button) v).setTextColor(Color.RED);
             turn = GameTurn.PLAYER_2;
 
         } else if (turn == GameTurn.PLAYER_2) {
-            textView.setText("Turn: Player 2");
+            textView.setText("Turn: Player 1 X");
             ((Button) v).setText("O");
-            ((Button) v).setTextSize(30);
             ((Button) v).setTextColor(Color.BLUE);
             turn = GameTurn.PLAYER_1;
         }
@@ -78,21 +90,18 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
 
             if (checkForWin()) {
                 if (turn == GameTurn.PLAYER_1) {
-                    player1Points++;
-                    Toast.makeText(this, "Player 1 loses!", Toast.LENGTH_SHORT).show();
-                    tv.setText("Player 1 loses!!");
-                    //reset();
-                } else {
-                    Toast.makeText(this, "Player 2 loses!", Toast.LENGTH_SHORT).show();
-                    tv.setText("Player 2 loses!!");
+                    Toast.makeText(this, "Player 2 loses!!", Toast.LENGTH_SHORT).show();
+                } else if (turn == GameTurn.PLAYER_2) {
+                    Toast.makeText(this, "Player 1 loses!!", Toast.LENGTH_SHORT).show();
                 }
             }
             if (roundCount == 9) {
-                Toast.makeText(this, "It's a tie!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "It's a tie!!", Toast.LENGTH_SHORT).show();
+
             }
         }
 
-
+    // checks if there are 3 in a row
     private boolean checkForWin() {
         String[][] field = new String[3][3];
 
@@ -133,7 +142,7 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
         return false;
     }
 
-
+    // resets the board 
     private void reset() {
         findViewById(R.id.player_turn_tv);
         for (int i = 0; i < 3; i++) {
@@ -141,10 +150,25 @@ public class Misere_avtivity extends Activity implements View.OnClickListener {
                 buttons[i][j].setText("");
                 roundCount = 0;
                 TextView tv = findViewById(R.id.player_turn_tv);
-                TextView textView = findViewById(R.id.winnter_tv);
+                TextView textView = findViewById(R.id.winner_tv);
                 textView.setText("");
-                tv.setText("Turn: Player 1");
+                tv.setText("Turn: Player 1 X");
             }
         }
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        //outState.putInt("roundCount", roundCount);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //roundCount = savedInstanceState.getInt("roundCount");
+
+    }
+
 }
