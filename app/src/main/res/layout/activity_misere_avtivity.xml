@@ -134,8 +134,7 @@
         android:text="Turn: Player 1 X"
         android:textStyle="bold"
         android:textColor="#ff0000"
-        android:textSize="30sp"
-        android:freezesText="true"/>
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/reset_button"

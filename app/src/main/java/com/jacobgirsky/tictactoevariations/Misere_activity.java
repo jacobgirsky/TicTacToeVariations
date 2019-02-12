@@ -1,6 +1,8 @@
 package com.jacobgirsky.tictactoevariations;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -19,11 +21,15 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     private boolean player1Turn = true;
     private boolean player2Turn = false;
 
+    SharedPreferences sharedPreferences;
+    private String buttonText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misere_avtivity);
+
 
         // get the ids for all the buttons
         for (int i = 0; i < 3; i++)
@@ -44,7 +50,11 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             }
         });
 
+        loadData();
+        //setButtonTex();
+
     }
+
 
     // to prevent the user from exiting the game
     @Override
@@ -144,6 +154,14 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         return false;
     }
 
+    private  void setButtonTex() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttonText = buttons[i][j].getText().toString();
+            }
+        }
+    }
+
     // resets the board
     private void reset() {
         for (int i = 0; i < 3; i++) {
@@ -157,4 +175,74 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             }
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadData();
+        //setButtonTex();
+    }
+
+    public void saveData() {
+        sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("player1Turn", player1Turn);
+        editor.putBoolean("player2Turn", player2Turn);
+        editor.putString("buttonText", buttonText);
+        editor.commit();
+
+        Toast.makeText(this, "Data saved ", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        buttonText = sharedPreferences.getString("buttonText", "");
+        player1Turn = sharedPreferences.getBoolean("player1Turn", false);
+        player1Turn = sharedPreferences.getBoolean("player2Turn", false);
+        setButtonTex();
+    }
+
+
+ /*
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("roundcount" , roundCount);
+        outState.putBoolean("player1Turn", player1Turn);
+        outState.putBoolean("player2Turn", player2Turn);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        roundCount = savedInstanceState.getInt("roundcount");
+        player1Turn = savedInstanceState.getBoolean("player1Turn");
+        player2Turn = savedInstanceState.getBoolean("player2Turn");
+
+    }
+    */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
