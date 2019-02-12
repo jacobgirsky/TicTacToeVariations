@@ -24,8 +24,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
-                android:gravity="center"
                 android:background="#44FFFFFF"
+                android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textSize="42sp" />
 
@@ -34,8 +34,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
-                android:gravity="center"
                 android:background="#44FFFFFF"
+                android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textSize="42sp" />
 
@@ -44,8 +44,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
-                android:gravity="center"
                 android:background="#44FFFFFF"
+                android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textSize="42sp" />
 
@@ -58,9 +58,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
+                android:background="#44FFFFFF"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#44FFFFFF"
                 android:textSize="42sp" />
 
             <Button
@@ -68,9 +68,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
+                android:background="#44FFFFFF"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#44FFFFFF"
                 android:textSize="42sp" />
 
             <Button
@@ -78,9 +78,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
+                android:background="#44FFFFFF"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#44FFFFFF"
                 android:textSize="42sp" />
 
         </TableRow>
@@ -92,9 +92,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
+                android:background="#44FFFFFF"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#44FFFFFF"
                 android:textSize="42sp" />
 
             <Button
@@ -102,9 +102,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
+                android:background="#44FFFFFF"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#44FFFFFF"
                 android:textSize="42sp" />
 
             <Button
@@ -112,9 +112,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
+                android:background="#44FFFFFF"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#44FFFFFF"
                 android:textSize="42sp" />
 
         </TableRow>

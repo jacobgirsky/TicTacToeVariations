@@ -8,11 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// shows the turns of the players
-enum GameTurn {
-    PLAYER_1,
-    PLAYER_2
-}
 
 public class Misere_activity extends Activity implements View.OnClickListener {
 
@@ -21,9 +16,8 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     private int roundCount = 0;
     TextView tv, textView;
     private long backPressedTime = 0;
-
-
-    GameTurn turn = GameTurn.PLAYER_1;
+    private boolean player1Turn = true;
+    private boolean player2Turn = false;
 
 
     @Override
@@ -75,29 +69,35 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             return;
         }
 
-        if (turn == GameTurn.PLAYER_1) {
+        if (player1Turn) {
             textView.setText("Turn: Player 2 O");
+            textView.setTextColor(Color.BLUE);
             ((Button) v).setText("X");
             ((Button) v).setTextColor(Color.RED);
-            turn = GameTurn.PLAYER_2;
+            player1Turn = false;
+            player2Turn = true;
 
-        } else if (turn == GameTurn.PLAYER_2) {
+        } else if (player2Turn) {
             textView.setText("Turn: Player 1 X");
+            textView.setTextColor(Color.RED);
             ((Button) v).setText("O");
             ((Button) v).setTextColor(Color.BLUE);
-            turn = GameTurn.PLAYER_1;
+            player2Turn = false;
+            player1Turn = true;
+
         }
+
 
         roundCount++;
 
         if (checkForWin()) {
-            if (turn == GameTurn.PLAYER_1) {
+            if (player1Turn) {
                 Toast.makeText(this, "Player 2 loses!!", Toast.LENGTH_SHORT).show();
-            } else if (turn == GameTurn.PLAYER_2) {
+            } else if (player2Turn) {
                 Toast.makeText(this, "Player 1 loses!!", Toast.LENGTH_SHORT).show();
             }
         }
-        if (roundCount == 9) {
+        if (roundCount == 9 && !checkForWin()) {
             Toast.makeText(this, "It's a tie!!", Toast.LENGTH_SHORT).show();
 
         }
@@ -150,22 +150,11 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
                 roundCount = 0;
-                TextView tv = findViewById(R.id.player_turn_tv);
-                TextView textView = findViewById(R.id.winner_tv);
+                textView.setTextColor(Color.RED);
                 textView.setText("");
-                tv.setText("Turn: Player 1 ");
+                textView.setText("Turn: Player 1 X ");
+                player1Turn = true;
             }
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 }
