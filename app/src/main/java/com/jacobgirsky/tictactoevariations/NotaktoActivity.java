@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NotaktoActivity extends AppCompatActivity implements View.OnClickListener {
     // board 1 array declaration:
@@ -24,6 +25,7 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
 
     int piecesPlayed = 0;
     private final int PURPLE = 0xA600FF;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,19 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
                 winner_text.setText("Player 2 Loses!");
             }
 
+        }
+    }
+
+    // this function prevents the user from exiting the game.
+    @Override
+    public void onBackPressed() {
+        long t = System.currentTimeMillis();
+        if (t - backPressedTime > 4000) {
+            backPressedTime = t;
+            Toast.makeText(this, "Press back again to leave the game",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -225,7 +240,21 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
         return win;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore state members from saved instance
+    }
 }
+
+
+
 
 
 

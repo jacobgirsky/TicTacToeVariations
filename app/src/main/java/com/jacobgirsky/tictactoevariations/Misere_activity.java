@@ -51,7 +51,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
 
     }
 
-    // to prevent the user from exiting the game
+    // this function prevent the user from exiting the game
     @Override
     public void onBackPressed() {
         long t = System.currentTimeMillis();
