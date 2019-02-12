@@ -1,111 +1,107 @@
 package com.jacobgirsky.tictactoevariations;
 
 import android.graphics.Color;
-import android.hardware.camera2.params.BlackLevelPattern;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NotaktoActivity extends AppCompatActivity implements View.OnClickListener {
-    // board 1 arraylist:
+    // board 1 array declaration:
     int[][] board1_ids = new int[][]{{R.id.b_00, R.id.b_01, R.id.b_02},
             {R.id.b_10, R.id.b_11, R.id.b_12}, {R.id.b_20, R.id.b_21, R.id.b_22}
     };
-
+    // board 2 array declaration:
     int[][] board2_ids = new int[][]{{R.id.bu_00, R.id.bu_01, R.id.bu_02},
             {R.id.bu_10, R.id.bu_11, R.id.bu_12}, {R.id.bu_20, R.id.bu_21, R.id.bu_22}
     };
-
+    // board 3 array declaration:
     int[][] board3_ids = new int[][]{{R.id.bt_00, R.id.bt_01, R.id.bt_02},
             {R.id.bt_10, R.id.bt_11, R.id.bt_12}, {R.id.bt_20, R.id.bt_21, R.id.bt_22}
     };
 
     int piecesPlayed = 0;
-    int i = 0;
+    private final int PURPLE = 0xA600FF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2_notakto);
 
-        // get the ids for board 1 buttons:
-        for (int row = 0; row < board1_ids.length; row++) {
-            for (int col = 0; col < board1_ids.length; col++) {
-                Button button = findViewById(board1_ids[row][col]);
-                button.setText("");
-                button.setOnClickListener(this);
-            }
-        }
-        // get the ids for board 2 buttons
-        for (int row = 0; row < board2_ids.length; row++) {
-            for (int col = 0; col < board2_ids.length; col++) {
-                Button button = findViewById(board2_ids[row][col]);
-                button.setOnClickListener(this);
-            }
-        }
-        // get the ids for board 3 buttons
-        for (int row = 0; row < board3_ids.length; row++) {
-            for (int col = 0; col < board3_ids.length; col++) {
-                Button button = findViewById(board3_ids[row][col]);
-                button.setOnClickListener(this);
-            }
-        }
-       // Log.i("message", "TRUE ==== here " + board1_ids.length);
-
+        // get the ids for board 1,2,and 3 buttons:
+        getIds(board1_ids);
+        getIds(board2_ids);
+        getIds(board3_ids);
 
     }
 
     @Override
     public void onClick(View view) {
         TextView winner_text = (TextView) findViewById(R.id.winner_textView);
-        TextView player_text = (TextView) findViewById(R.id.player_textView);
-        player_text.setText("Player 1 turn");
+        TextView turnText = (TextView) findViewById(R.id.player_textView);
+        turnText.setText("Player 1 turn");
         String turn = "";
+        boolean board1_dead, board2_dead, board3_dead;
 
-        for (int row = 0; row < board1_ids.length; row++) {
-            for (int col = 0; col < board1_ids.length; col++) {
-                Button button = (Button) view;
-                button.setText("X");
-                button.setTextColor(Color.BLACK);
+        TextView board1_tv = findViewById(R.id.board1_textView);
+        board1_dead = isBoardDead(board1_ids, view, board1_tv);
 
-                if (button.isClickable() == true) {
-                    piecesPlayed++;
-                    button.setClickable(false);
-                }
+        TextView board2_tv = findViewById(R.id.board2_textView);
+        board2_dead = isBoardDead(board2_ids, view, board2_tv);
 
-                if (piecesPlayed % 2 == 0) {
-                    turn = "player1";
-                    player_text.setText("Player 1 turn");
-                } else {
-                    turn = "player2";
-                    player_text.setText("Player 2 turn");
-                }
+        TextView board3_tv = findViewById(R.id.board3_textView);
+        board3_dead = isBoardDead(board3_ids, view, board3_tv);
 
-                TextView tv = findViewById(R.id.board1_textView);
-                if (isHorizonatalWin(board1_ids) || isVerticalWin(board1_ids) || isDiagonalRightWin(board1_ids) || isDiagonalLeftWin(board1_ids)) {
-                    setEnabled(board1_ids, tv);
-                    if (tv.getText() == "DEAD BOARD") {
-                        i++;
+        if (board1_dead && board2_dead && board3_dead) {
+            turnText.setText("GAME OVER!");
+            if (turn == "player2") {
+
+                winner_text.setText("Player 1 Loses!");
+            } else {
+                winner_text.setText("Player 2 Loses!");
+            }
+
+        }
+    }
+
+
+    /*for (int row = 0; row < board1_ids.length; row++) {
+        for (int col = 0; col < board1_ids.length; col++) {
+            Button button = (Button) view;
+            button.setText("X");
+            button.setTextColor(Color.BLACK);
+
+            if (button.isClickable() == true) {
+                piecesPlayed++;
+                button.setClickable(false);
+            }
+            turn = setTurn(piecesPlayed, player_text);
+
+            TextView board_tv1 = findViewById(R.id.board1_textView);
+            if (isHorizonatalWin(board1_ids) || isVerticalWin(board1_ids) || isDiagonalRightWin(board1_ids) || isDiagonalLeftWin(board1_ids)) {
+                setEnabled(board1_ids, tv);
+
+                Log.i("message", "TRUE ======================== here " + deadBoards);
+                if (deadBoards == 3) {
+                    if (turn == "player2") {
+                        winner_text.setText("Player 1 Loses!");
+                    } else {
+                        winner_text.setText("Player 2 Loses!");
                     }
-                    Log.i("message", "TRUE ======================== here " + i);
-                    if (i == 3) {
-                        if (turn == "player2") {
-                            winner_text.setText("Player 1 Loses!");
-                        } else {
-                            winner_text.setText("Player 2 Loses!");
-                        }
-                    }
-
-                } else {
-                    continue;
                 }
+
+            } else {
+                continue;
             }
         }
-
+    }*/
+        /*
+        TextView tv2 = findViewById(R.id.board2_textView);
+        if (tv2.getText() == "DEAD BOARD") {
+            deadBoards++;
+        }
         for (int row = 0; row < board2_ids.length; row++) {
             for (int col = 0; col < board2_ids.length; col++) {
                 Button button = (Button) view;
@@ -116,23 +112,13 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
                     piecesPlayed++;
                     button.setClickable(false);
                 }
+                turn = setTurn(piecesPlayed, player_text);
 
-                if (piecesPlayed % 2 == 0) {
-                    turn = "player1";
-                    player_text.setText("Player 1 turn");
-                } else {
-                    turn = "player2";
-                    player_text.setText("Player 2 turn");
-                }
-
-                TextView tv = findViewById(R.id.board2_textView);
+                TextView board_tv2 = findViewById(R.id.board2_textView);
                 if (isHorizonatalWin(board2_ids) || isVerticalWin(board2_ids) || isDiagonalRightWin(board2_ids) || isDiagonalLeftWin(board2_ids)) {
                     setEnabled(board2_ids, tv);
-                    if (tv.getText() == "DEAD BOARD") {
-                        i++;
-                    }
-                    Log.i("message", "TRUE ======================== here " + i);
-                    if (i == 3) {
+                    Log.i("message", "TRUE ======================== here " + deadBoards);
+                    if (deadBoards == 3) {
                         if (turn == "player2") {
                             winner_text.setText("Player 1 Loses!");
                         } else {
@@ -146,7 +132,10 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
-
+        TextView tv3 = findViewById(R.id.board3_textView);
+        if (tv3.getText() == "DEAD BOARD") {
+            deadBoards++;
+        }
         for (int row = 0; row < board3_ids.length; row++) {
             for (int col = 0; col < board3_ids.length; col++) {
                 Button button = (Button) view;
@@ -157,23 +146,13 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
                     piecesPlayed++;
                     button.setClickable(false);
                 }
+                turn = setTurn(piecesPlayed, player_text);
 
-                if (piecesPlayed % 2 == 0) {
-                    turn = "player1";
-                    player_text.setText("Player 1 turn");
-                } else {
-                    turn = "player2";
-                    player_text.setText("Player 2 turn");
-                }
-
-                TextView tv = findViewById(R.id.board3_textView);
+                TextView board_tv3 = findViewById(R.id.board3_textView);
                 if (isHorizonatalWin(board3_ids) || isVerticalWin(board3_ids) || isDiagonalRightWin(board3_ids) || isDiagonalLeftWin(board3_ids)) {
                     setEnabled(board3_ids, tv);
-                    if (tv.getText() == "DEAD BOARD") {
-                        i++;
-                    }
-                    Log.i("message", "TRUE ======================== here " + i);
-                    if (i == 3) {
+                    Log.i("message", "TRUE ======================== here " + deadBoards);
+                    if (deadBoards == 3) {
                         if (turn == "player2") {
                             winner_text.setText("Player 1 Loses!");
                         } else {
@@ -223,8 +202,42 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
                         }
                     }
                 }*/
+    private void getIds(int[][] ids) {
+        for (int row = 0; row < ids.length; row++) {
+            for (int col = 0; col < ids.length; col++) {
+                Button button = findViewById(ids[row][col]);
+                button.setText("");
+                button.setOnClickListener(this);
             }
         }
+    }
+
+    private boolean isBoardDead(int[][] ids, View view, View board_tv) {
+        boolean isDead = false;
+        TextView turnText = (TextView) findViewById(R.id.player_textView);
+        String turn = "";
+        for (int row = 0; row < ids.length; row++) {
+            for (int col = 0; col < ids.length; col++) {
+                Button button = (Button) view;
+                button.setText("X");
+                button.setTextColor(Color.BLACK);
+                TextView tv = (TextView) board_tv;
+                if (button.isClickable() == true) {
+                    piecesPlayed++;
+                    button.setClickable(false);
+                }
+                turn = setTurn(piecesPlayed, turnText);
+
+                if (isHorizonatalWin(ids) || isVerticalWin(ids) || isDiagonalRightWin(ids) || isDiagonalLeftWin(ids)) {
+                    setEnabled(ids, tv);
+                    isDead = true;
+
+                } else {
+                    isDead = false;
+                }
+            }
+        }
+        return isDead;
     }
 
     private void setEnabled(int[][] ids, View v) {
@@ -237,7 +250,21 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
             TextView tv = (TextView) v;
             tv.setText("DEAD BOARD");
             tv.setTextColor(Color.RED);
+
         }
+    }
+
+    private String setTurn(int piecesPlayed, View turn_v) {
+        String turn = "";
+        TextView tv = (TextView) turn_v;
+        if (piecesPlayed % 2 == 0) {
+            turn = "player1";
+            tv.setText("Player 1 turn");
+        } else {
+            turn = "player2";
+            tv.setText("Player 2 turn");
+        }
+        return turn;
     }
 
     private boolean isHorizonatalWin(int[][] ids) {
