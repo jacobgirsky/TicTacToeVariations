@@ -2,9 +2,9 @@ package com.jacobgirsky.tictactoevariations;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,10 +20,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     private long backPressedTime = 0;
     private boolean player1Turn = true;
     private boolean player2Turn = false;
-
-    SharedPreferences sharedPreferences;
-    private String buttonText;
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
                 reset();
             }
         });
-
 
     }
 
@@ -152,13 +148,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         return false;
     }
 
-    private  void setButtonTex() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                buttonText = buttons[i][j].getText().toString();
-            }
-        }
-    }
 
     // resets the board
     private void reset() {
@@ -175,33 +164,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     }
 
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    /*
-    public void saveData() {
-        sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putBoolean("player1Turn", player1Turn);
-        editor.putBoolean("player2Turn", player2Turn);
-        editor.putString("buttonText", buttonText);
-        editor.commit();
-
-        Toast.makeText(this, "Data saved ", Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
-        buttonText = sharedPreferences.getString("buttonText", "");
-        player1Turn = sharedPreferences.getBoolean("player1Turn", false);
-        player1Turn = sharedPreferences.getBoolean("player2Turn", false);
-        setButtonTex();
-    }
-    */
 }
 
 
