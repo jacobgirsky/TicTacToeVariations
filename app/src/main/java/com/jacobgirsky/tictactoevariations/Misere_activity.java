@@ -50,8 +50,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             }
         });
 
-        loadData();
-        //setButtonTex();
 
     }
 
@@ -176,19 +174,13 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        saveData();
-    }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        loadData();
-        //setButtonTex();
+    protected void onPause() {
+        super.onPause();
     }
 
+    /*
     public void saveData() {
         sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -208,26 +200,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         player1Turn = sharedPreferences.getBoolean("player1Turn", false);
         player1Turn = sharedPreferences.getBoolean("player2Turn", false);
         setButtonTex();
-    }
-
-
- /*
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("roundcount" , roundCount);
-        outState.putBoolean("player1Turn", player1Turn);
-        outState.putBoolean("player2Turn", player2Turn);
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        roundCount = savedInstanceState.getInt("roundcount");
-        player1Turn = savedInstanceState.getBoolean("player1Turn");
-        player2Turn = savedInstanceState.getBoolean("player2Turn");
-
     }
     */
 }
