@@ -13,7 +13,10 @@
             android:name=".Misere_activity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"></activity>
-        <activity android:name=".NotaktoActivity" />
+        <activity
+            android:name=".NotaktoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"></activity>
         <activity android:name=".activity_how_to" />
         <activity android:name=".MainActivity">
             <intent-filter>

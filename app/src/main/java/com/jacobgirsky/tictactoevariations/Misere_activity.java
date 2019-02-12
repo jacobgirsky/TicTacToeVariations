@@ -37,6 +37,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 buttons[i][j] = findViewById(resID);
                 buttons[i][j].setOnClickListener(this);
+
             }
 
         // onClick for the reset button
