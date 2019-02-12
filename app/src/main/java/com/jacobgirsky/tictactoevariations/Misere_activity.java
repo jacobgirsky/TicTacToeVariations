@@ -17,8 +17,9 @@ enum GameTurn {
 public class Misere_activity extends Activity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[3][3];
+
     private int roundCount = 0;
-    TextView tv;
+    TextView tv, textView;
     private long backPressedTime = 0;
 
 
@@ -66,7 +67,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        TextView textView = findViewById(R.id.player_turn_tv);
+        textView = findViewById(R.id.player_turn_tv);
         tv = findViewById(R.id.winner_tv);
 
         if (!((Button) v).getText().toString().equals("")) {
@@ -86,20 +87,20 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             turn = GameTurn.PLAYER_1;
         }
 
-            roundCount++;
+        roundCount++;
 
-            if (checkForWin()) {
-                if (turn == GameTurn.PLAYER_1) {
-                    Toast.makeText(this, "Player 2 loses!!", Toast.LENGTH_SHORT).show();
-                } else if (turn == GameTurn.PLAYER_2) {
-                    Toast.makeText(this, "Player 1 loses!!", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (roundCount == 9) {
-                Toast.makeText(this, "It's a tie!!", Toast.LENGTH_SHORT).show();
-
+        if (checkForWin()) {
+            if (turn == GameTurn.PLAYER_1) {
+                Toast.makeText(this, "Player 2 loses!!", Toast.LENGTH_SHORT).show();
+            } else if (turn == GameTurn.PLAYER_2) {
+                Toast.makeText(this, "Player 1 loses!!", Toast.LENGTH_SHORT).show();
             }
         }
+        if (roundCount == 9) {
+            Toast.makeText(this, "It's a tie!!", Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
     // checks if there are 3 in a row
     private boolean checkForWin() {
@@ -144,7 +145,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
 
     // resets the board
     private void reset() {
-        findViewById(R.id.player_turn_tv);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
@@ -152,23 +152,19 @@ public class Misere_activity extends Activity implements View.OnClickListener {
                 TextView tv = findViewById(R.id.player_turn_tv);
                 TextView textView = findViewById(R.id.winner_tv);
                 textView.setText("");
-                tv.setText("Turn: Player 1 X");
+                tv.setText("Turn: Player 1 ");
             }
         }
     }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
 
-        //outState.putInt("roundCount", roundCount);
+    @Override
+    protected void onStop() {
+        super.onStop();
+
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        //roundCount = savedInstanceState.getInt("roundCount");
-
+    protected void onStart() {
+        super.onStart();
     }
-
 }
