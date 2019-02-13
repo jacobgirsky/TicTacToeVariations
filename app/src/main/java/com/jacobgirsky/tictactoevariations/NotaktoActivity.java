@@ -26,7 +26,7 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
     };
 
     int piecesPlayed = 0;
-    private final int PURPLE = 0xA600FF;
+    private final int PURPLE = 0xAAA600FF;
     private long backPressedTime = 0;
 
     @Override
@@ -141,9 +141,11 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
         TextView tv = (TextView) turn_v;
         if (piecesPlayed % 2 == 0) {
             turn = "player1";
+            tv.setTextColor(Color.GREEN);
             tv.setText("Player 1 turn");
         } else {
             turn = "player2";
+            tv.setTextColor(Color.YELLOW);
             tv.setText("Player 2 turn");
         }
         return turn;
