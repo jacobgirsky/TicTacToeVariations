@@ -20,7 +20,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     private long backPressedTime = 0;
     private boolean player1Turn = true;
     private boolean player2Turn = false;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
