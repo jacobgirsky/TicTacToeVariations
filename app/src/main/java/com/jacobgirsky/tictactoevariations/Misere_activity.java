@@ -187,6 +187,7 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         }
     }
 
+    // plays sounds when the player loses
     private void playSound() {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.crowd);
