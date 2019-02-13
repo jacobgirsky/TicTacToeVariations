@@ -1,5 +1,7 @@
 package com.jacobgirsky.tictactoevariations;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +26,7 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
     };
 
     int piecesPlayed = 0;
-    private final int PURPLE = 0xA600FF;
+    private final int PURPLE = 0xAAA600FF;
     private long backPressedTime = 0;
 
     @Override
@@ -139,9 +141,11 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
         TextView tv = (TextView) turn_v;
         if (piecesPlayed % 2 == 0) {
             turn = "player1";
+            tv.setTextColor(Color.GREEN);
             tv.setText("Player 1 turn");
         } else {
             turn = "player2";
+            tv.setTextColor(Color.YELLOW);
             tv.setText("Player 2 turn");
         }
         return turn;
@@ -243,6 +247,16 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+       /* outState.putIntArray("board10",board1_ids[0]);
+        outState.putIntArray("board11",board1_ids[1]);
+        outState.putIntArray("board12",board1_ids[2]);
+        outState.putIntArray("board20",board2_ids[0]);
+        outState.putIntArray("board21",board2_ids[1]);
+        outState.putIntArray("board22",board2_ids[2]);
+        outState.putIntArray("board30",board3_ids[0]);
+        outState.putIntArray("board31",board3_ids[1]);
+        outState.putIntArray("board31",board3_ids[2]);*/
+
 
     }
 
@@ -250,6 +264,20 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         // Restore state members from saved instance
+       /* board1_ids[0]=savedInstanceState.getIntArray("board10");
+        board1_ids[1]=savedInstanceState.getIntArray("board11");
+        board1_ids[2]=savedInstanceState.getIntArray("board12");
+        board2_ids[0]=savedInstanceState.getIntArray("board20");
+        board2_ids[1]=savedInstanceState.getIntArray("board21");
+        board2_ids[2]=savedInstanceState.getIntArray("board22");
+        board3_ids[0]=savedInstanceState.getIntArray("board30");
+        board3_ids[1]=savedInstanceState.getIntArray("board31");
+        board3_ids[2]=savedInstanceState.getIntArray("board33");*/
+
+    }
+
+    public void onResume() {
+        super.onResume();
     }
 }
 
