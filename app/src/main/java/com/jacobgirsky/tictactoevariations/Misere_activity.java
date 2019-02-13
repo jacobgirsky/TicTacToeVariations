@@ -1,8 +1,8 @@
 package com.jacobgirsky.tictactoevariations;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,17 +16,19 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     private Button[][] buttons = new Button[3][3];
 
     private int roundCount = 0;
-    TextView tv, textView;
+    private TextView tv, textView;
     private long backPressedTime = 0;
     private boolean player1Turn = true;
     private boolean player2Turn = false;
+
+    MediaPlayer mediaPlayer;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misere_avtivity);
-
 
         // get the ids for all the buttons
         for (int i = 0; i < 3; i++)
@@ -96,14 +98,17 @@ public class Misere_activity extends Activity implements View.OnClickListener {
 
         if (checkForWin()) {
             if (player1Turn) {
-                Toast.makeText(this, "Player 2 loses!!", Toast.LENGTH_SHORT).show();
+                tv.setText("Player 2 loses!!");
+                setButtonsFalse();
+                playSound();
             } else if (player2Turn) {
-                Toast.makeText(this, "Player 1 loses!!", Toast.LENGTH_SHORT).show();
+                tv.setText("Player 1 loses!!");
+                setButtonsFalse();
+                playSound();
             }
         }
         if (roundCount == 9 && !checkForWin()) {
-            Toast.makeText(this, "It's a tie!!", Toast.LENGTH_SHORT).show();
-
+            tv.setText("It's a tie!!");
         }
     }
 
@@ -148,6 +153,24 @@ public class Misere_activity extends Activity implements View.OnClickListener {
         return false;
     }
 
+    // keeps the buttons from being pushed after the game is won
+    private void setButtonsFalse() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttons[i][j].setClickable(false);
+            }
+        }
+    }
+
+    // allows the buttons be pushed
+    private void setButtonsTrue() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttons[i][j].setClickable(true);
+            }
+        }
+    }
+
 
     // resets the board
     private void reset() {
@@ -156,15 +179,42 @@ public class Misere_activity extends Activity implements View.OnClickListener {
                 buttons[i][j].setText("");
                 roundCount = 0;
                 textView.setTextColor(Color.RED);
-                textView.setText("");
                 textView.setText("Turn: Player 1 X ");
+                tv.setText("");
                 player1Turn = true;
+                setButtonsTrue();
             }
         }
     }
 
+    private void playSound() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.crowd);
+
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mediaPlayer.start();
+                    mediaPlayer.setLooping(false);
+                }
+            });
+
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    Log.i("MEDIA", "Problem sound");
+                    return false;
+                }
+            });
+        } else {
+            mediaPlayer.prepareAsync(); // will start loading then play when it hit onStart() above
+        }
+    }
 
 }
+
+
+
 
 
 
