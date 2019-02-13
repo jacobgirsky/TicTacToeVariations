@@ -57,9 +57,9 @@
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="339dp"
-                android:layout_height="60dp"
+                android:layout_height="98dp"
                 android:paddingLeft="4dp"
-                android:text="Players avoid getting three in a row."
+                android:text="A simple variation on the original Tic Tac Toe. Players avoid getting three in a row."
                 android:textColor="#f00"
                 android:textSize="20sp"
                 android:textStyle="bold"
