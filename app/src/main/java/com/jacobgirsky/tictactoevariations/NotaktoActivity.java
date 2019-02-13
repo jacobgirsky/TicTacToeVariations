@@ -26,7 +26,6 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
     };
 
     int piecesPlayed = 0;
-    private final int PURPLE = 0xAAA600FF;
     private long backPressedTime = 0;
 
     @Override
@@ -249,7 +248,7 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
         super.onSaveInstanceState(outState);
 
     }
-    
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
