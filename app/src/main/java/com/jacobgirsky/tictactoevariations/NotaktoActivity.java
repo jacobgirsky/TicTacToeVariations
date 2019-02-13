@@ -69,17 +69,6 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
-   /* @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Log.d("Entered to change as Portrait ","PPPPPPPPPPPPPPPPP");
-            setContentView(R.layout.activity2_notakto);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.d("Entered to change as LandScape ","LLLLLLLLLLLLLLLLLLLL");
-            setContentView(R.layout.activity2_notakto);
-        }
-    }*/
 
     // this function prevents the user from exiting the game.
     @Override
@@ -267,9 +256,8 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
         outState.putIntArray("board31",board3_ids[2]);*/
 
 
-
-
     }
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -286,7 +274,7 @@ public class NotaktoActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
     }
 }
