@@ -21,9 +21,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
     private boolean player1Turn = true;
     private boolean player2Turn = false;
 
-    MediaPlayer mediaPlayer;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +97,9 @@ public class Misere_activity extends Activity implements View.OnClickListener {
             if (player1Turn) {
                 tv.setText("Player 2 loses!!");
                 setButtonsFalse();
-                playSound();
             } else if (player2Turn) {
                 tv.setText("Player 1 loses!!");
                 setButtonsFalse();
-                playSound();
             }
         }
         if (roundCount == 9 && !checkForWin()) {
@@ -184,31 +179,6 @@ public class Misere_activity extends Activity implements View.OnClickListener {
                 player1Turn = true;
                 setButtonsTrue();
             }
-        }
-    }
-
-    // plays sounds when the player loses
-    private void playSound() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.crowd);
-
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(false);
-                }
-            });
-
-            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.i("MEDIA", "Problem sound");
-                    return false;
-                }
-            });
-        } else {
-            mediaPlayer.prepareAsync(); // will start loading then play when it hit onStart() above
         }
     }
 
